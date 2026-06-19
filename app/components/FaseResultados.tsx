@@ -198,6 +198,49 @@ export default function FaseResultados({ configuraciones, ranking, onReiniciar }
         </div>
       </div>
 
+      {/* Rangos recomendados */}
+      <div className="glass-card p-6">
+        <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-1">
+          Rangos recomendados de operación
+        </h3>
+        <p className="text-xs text-slate-500 mb-5">
+          Basado en las 3 configuraciones seleccionadas como mejores. Operar dentro de estos rangos maximiza el rendimiento del husillo.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {CAMPOS_PARAMETROS.map(({ key, label, unit }) => {
+            const vals = top3.map((c) => c[key as keyof ConfiguracionP] as number);
+            const min = Math.min(...vals);
+            const max = Math.max(...vals);
+            const mismo = min === max;
+            return (
+              <div
+                key={key}
+                className="rounded-xl border border-slate-700 bg-slate-800/50 px-4 py-3 flex items-center justify-between gap-4"
+              >
+                <div>
+                  <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    {label}{unit ? ` (${unit})` : ""}
+                  </p>
+                  <p className="text-base font-bold text-white mt-0.5">
+                    {mismo
+                      ? min.toLocaleString()
+                      : `${min.toLocaleString()} – ${max.toLocaleString()}`}
+                  </p>
+                </div>
+                <div className="text-right shrink-0">
+                  {top3.map((c, i) => (
+                    <div key={i} className="text-xs text-slate-500 leading-snug">
+                      <span className="mr-1">{["🥇","🥈","🥉"][i]}</span>
+                      <span className="text-slate-400">{(c[key as keyof ConfiguracionP] as number).toLocaleString()}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Score global */}
       <div className="glass-card p-6">
         <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-5">
