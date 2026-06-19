@@ -103,7 +103,7 @@ export default function GraficaProximidad({ configuraciones, ranking }: Props) {
       legend: { display: false },
       tooltip: {
         callbacks: {
-          label: (ctx) => ` ${ctx.parsed.x.toFixed(1)}%`,
+          label: (ctx) => ` ${(ctx.parsed.x ?? 0).toFixed(1)}%`,
         },
       },
     },
