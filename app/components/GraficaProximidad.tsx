@@ -88,7 +88,6 @@ export default function GraficaProximidad({ configuraciones, ranking }: Props) {
         backgroundColor: "rgba(0,0,0,0)",
         borderColor: "rgba(34,197,94,0.5)",
         borderWidth: 1.5,
-        borderDash: [6, 4],
         type: "bar" as const,
         borderRadius: 0,
         borderSkipped: false,
